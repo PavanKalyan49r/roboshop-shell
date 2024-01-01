@@ -39,7 +39,8 @@ VALIDATE $? "Enabeling current nodeJS"
 
 dnf install nodejs -y &>> $LOGFILE
 
-VALIDATE $? "Installing nodeJS" 
+VALIDATE $? "Installing nodeJS"
+
 useradd roboshop
 
 VALIDATE $? "creating roboshop user" 
@@ -85,8 +86,8 @@ VALIDATE $? "copying mongo repo"
 
 dnf install mongodb-org-shell -y &>> $LOGFILE
 
-VALIDATE $? "installing mongodb client" 
+VALIDATE $? "installing mongodb client"
 
-mongo --host  $MONGODB_HOST </app/schema/catalogue.js &>> $LOGFILE
+mongo --host  $MONGODB_HOST </app/schema/catalogue.js
 
 VALIDATE $? " loading catalogue data into  mongodb " 
