@@ -70,7 +70,7 @@ npm install &>> $LOGFILE
 VALIDATE $? "installimg dependencies"
 
 #use absolute, because catalogue.service exists there
-cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
+cp /home/centos/roboshop-shellscript/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 
 VALIDATE $? "copying catalogue service file"
 
@@ -86,7 +86,7 @@ systemctl start catalogue &>> $LOGFILE
 
 VALIDATE $? "starting catalogue" 
 
-cp /home/centos/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongo.repo
+cp /home/centos/roboshop-shellscript/mongodb.repo /etc/yum.repos.d/mongo.repo
 
 VALIDATE $? "copying mongo repo" 
 
