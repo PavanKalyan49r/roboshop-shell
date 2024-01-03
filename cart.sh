@@ -5,7 +5,6 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-MONGODB_HOST=mongodb.pavanaws.online
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
@@ -55,44 +54,45 @@ mkdir -p /app
 
 VALIDATE $? "creating app directory"
 
-curl -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>> $LOGFILE
+curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILE
 
-VALIDATE $? "downloading user application" 
+VALIDATE $? "downloading catalogue application" 
 
 cd /app 
 
-unzip -o /tmp/user.zip &>> $LOGFILE
+unzip -o /tmp/catalogue.zip &>> $LOGFILE
 
-VALIDATE $? "unzipping user"
+VALIDATE $? "unzipping catalogue"
 
 npm install &>> $LOGFILE
 
 VALIDATE $? "installimg dependencies"
 
-cp /home/centos/roboshop-shell/user.service /etc/systemd/system/user.service
+#use absolute, because catalogue.service exists there
+cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 
-VALIDATE $? "copying user service file"
+VALIDATE $? "copying catalogue service file"
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $LOGFILE
 
-VALIDATE $? "user demon reload" 
+VALIDATE $? "catalogue demon reload" 
 
-systemctl enable user &>> $LOGFILE
+systemctl enable catalogue &>> $LOGFILE
 
-VALIDATE $? "enable user" 
+VALIDATE $? "enable catalogue" 
 
-systemctl start user &>> $LOGFILE
+systemctl start catalogue &>> $LOGFILE
 
-VALIDATE $? "starting user" 
+VALIDATE $? "starting catalogue" 
 
 cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
 
-VALIDATE $? "copying mongodb repo"
+VALIDATE $? "copying mongo repo" 
 
-dnf install mongodb-org-shell -y  &>> $LOGFILE
+dnf install mongodb-org-shell -y &>> $LOGFILE
 
-VALIDATE $? "installing mongodb client" 
+VALIDATE $? "installing mongodb client"
 
-mongo --host $MONGODB_HOST </app/schema/user.js &>> $LOGFILE
+mongo --host $MONGODB_HOST </app/schema/catalogue.js &>> $LOGFILE
 
-VALIDATE $? "loading user data into mongodb" 
+VALIDATE $? "loading catalogue data into  mongodb " 
