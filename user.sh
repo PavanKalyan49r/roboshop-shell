@@ -55,36 +55,36 @@ mkdir -p /app
 
 VALIDATE $? "creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
+curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>> $LOGFILE
 
-VALIDATE $? "downloading catalogue application" 
+VALIDATE $? "downloading user application" 
 
 cd /app 
 
-unzip -o /tmp/catalogue.zip &>> $LOGFILE
+unzip -o /tmp/user.zip &>> $LOGFILE
 
-VALIDATE $? "unzipping catalogue"
+VALIDATE $? "unzipping user"
 
 npm install &>> $LOGFILE
 
 VALIDATE $? "installimg dependencies"
 
-#use absolute, because catalogue.service exists there
-cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
+#use absolute, because user.service exists there
+cp /home/centos/roboshop-shell/user.service /etc/systemd/system/user.service
 
-VALIDATE $? "copying catalogue service file"
+VALIDATE $? "copying user service file"
 
 systemctl daemon-reload &>> $LOGFILE
 
-VALIDATE $? "catalogue demon reload" 
+VALIDATE $? "user demon reload" 
 
-systemctl enable catalogue &>> $LOGFILE
+systemctl enable user &>> $LOGFILE
 
-VALIDATE $? "enable catalogue" 
+VALIDATE $? "enable user" 
 
-systemctl start catalogue &>> $LOGFILE
+systemctl start user &>> $LOGFILE
 
-VALIDATE $? "starting catalogue" 
+VALIDATE $? "starting user" 
 
 cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
 
@@ -94,6 +94,18 @@ dnf install mongodb-org-shell -y &>> $LOGFILE
 
 VALIDATE $? "installing mongodb client"
 
-mongo --host $MONGODB_HOST </app/schema/catalogue.js &>> $LOGFILE
+mongo --host $MONGODB_HOST </app/schema/user.js &>> $LOGFILE
 
-VALIDATE $? "loading catalogue data into  mongodb "
+VALIDATE $? "loading user data into  mongodb "
+
+cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
+
+VALIDATE $? "copying mongodb repo" 
+
+dnf install mongodb-org-shell -y &>> $LOGFILE
+
+VALIDATE $? "installing mongodb client"
+
+mongo --host $MONGODB_HOST </app/schema/user.js &>> $LOGFILE
+
+VALIDATE $? "loading user data into mongodb "

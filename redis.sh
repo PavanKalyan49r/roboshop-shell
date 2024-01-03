@@ -8,7 +8,7 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
-exec &>> $LOGFILE
+exec &>$LOGFILE
 
 echo "script started executing at $TIMESTAMP" &>> $LOGFILE
 
@@ -32,7 +32,7 @@ fi # fi  means reverse of if, indicating condtion end
 
 dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
 
-VALIDATE $? "installing remi release" 
+VALIDATE $? "installing remi release"
 
 dnf module enable redis:remi-6.2 -y
 
@@ -44,12 +44,12 @@ VALIDATE $? "installing redis"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf
 
-VALIDATE $? "allowing remote connection"
+VALIDATE $? "allowing remote connections redis"
 
 systemctl enable redis
 
-VALIDATE $? "enabled redis"
+VALIDATE $? "enabling redis"
 
 systemctl start redis
 
-VALIDATE $? "started redis"
+VALIDATE $? "starting redis"
