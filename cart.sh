@@ -60,39 +60,27 @@ VALIDATE $? "downloading catalogue application"
 
 cd /app 
 
-unzip -o /tmp/catalogue.zip &>> $LOGFILE
+unzip -o /tmp/cart.zip &>> $LOGFILE
 
-VALIDATE $? "unzipping catalogue"
+VALIDATE $? "unzipping cart"
 
 npm install &>> $LOGFILE
 
 VALIDATE $? "installimg dependencies"
 
-#use absolute, because catalogue.service exists there
-cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
+#use absolute, because cart.service exists there
+cp /home/centos/roboshop-shell/cart.service /etc/systemd/system/cart.service &>> $LOGFILE
 
-VALIDATE $? "copying catalogue service file"
+VALIDATE $? "copying cart service file"
 
 systemctl daemon-reload &>> $LOGFILE
 
-VALIDATE $? "catalogue demon reload" 
+VALIDATE $? "cart demon reload" 
 
-systemctl enable catalogue &>> $LOGFILE
+systemctl enable cart &>> $LOGFILE
 
-VALIDATE $? "enable catalogue" 
+VALIDATE $? "enable cart" 
 
-systemctl start catalogue &>> $LOGFILE
+systemctl start cart &>> $LOGFILE
 
-VALIDATE $? "starting catalogue" 
-
-cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
-
-VALIDATE $? "copying mongo repo" 
-
-dnf install mongodb-org-shell -y &>> $LOGFILE
-
-VALIDATE $? "installing mongodb client"
-
-mongo --host $MONGODB_HOST </app/schema/catalogue.js &>> $LOGFILE
-
-VALIDATE $? "loading catalogue data into  mongodb " 
+VALIDATE $? "starting cart"
