@@ -46,7 +46,7 @@ id roboshop
 if [ $? -ne 0 ]
 then
 useradd roboshop
-VALIDATE " roboshop user creation "
+VALIDATE $? " roboshop user creation "
 else
 echo -e " roboshop user already exist $Y skipping $N"
 fi
