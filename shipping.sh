@@ -86,8 +86,8 @@ VALIDATE $? " install mysql client "
 
 mysql -h mysql.pavanaws.online -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
 
-VALIDATE $? " loading shipping data  "
+VALIDATE $? " loading shipping data "
 
 systemctl restart shipping &>> $LOGFILE
 
-VALIDATE $? " retsart shipping "
+VALIDATE $? " retsart shipping"
