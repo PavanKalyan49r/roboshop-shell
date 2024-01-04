@@ -84,8 +84,7 @@ dnf install mysql -y &>> $LOGFILE
 
 VALIDATE $? " install mysql client "
 
-mysql -h mysql.pavanaws.online -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
-
+mysql -h mysql.pavanaws.online -uroot -pRoboShop@1 < /app/schema/shipping.sql 
 VALIDATE $? " loading shipping data "
 
 systemctl restart shipping &>> $LOGFILE
