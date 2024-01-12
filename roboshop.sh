@@ -2,7 +2,7 @@
 
 AMI=ami-03265a0778a880afb
 SG_ID=sg-03f8f4d516bfc9736 #replace with your sg_id
-INSTANCES=("mongodb" "redis" "mysql" "rabitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "web")
+INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "web")
 ZONE_ID=Z0318892E6XHJ09MU47M
 DOMAIN_NAME="pavanaws.online"
 
