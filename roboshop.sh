@@ -20,7 +20,7 @@ IP_ADDRESS=$(aws ec2 run-instances --image-id ami-03265a0778a880afb --instance-t
 
 #CREATE R53 RECORD, MAKE SURE YOU DELETE EXISTING RECORD
 aws route53 change-resource-record-sets \
-  --hosted-zone-id 1234567890ABC \
+  --hosted-zone-id $ZONE_ID \
   --change-batch '
   {
     "Comment": "creating a record set"
