@@ -31,7 +31,7 @@ aws route53 change-resource-record-sets \
         ,"Type"             : "A"
         ,"TTL"              : 1
         ,"ResourceRecords"  : [{
-            "Value"         : "'$IP_ADDRESS"
+            "Value"         : "'$IP_ADDRESS'"
         }]
       }
     }]
