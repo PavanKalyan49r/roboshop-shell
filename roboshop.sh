@@ -6,7 +6,7 @@ INSTANCES=("mongodb" "redis" "mysql" "rabitmq" "catalogue" "user" "cart" "shippi
 ZONE_ID=Z0318892E6XHJ09MU47M
 DOMAIN_NAME="pavanaws.online"
 
-for -i in "${INSTANCES[@]}"
+for i in "${INSTANCES[@]}"
 do
 if[ $i == "mongodb" ] || [ $i == "mysql" ] || [ $i == "shipping" ]
 then
